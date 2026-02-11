@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { CheckboxGroup } from '@/components/ui';
+import { useTranslation } from '@/lib/useTranslation';
 import type { MonetizationType, CheckboxOption, StepProps } from '@/types/qualification';
 
 interface MonetizationStepProps extends StepProps {
@@ -9,91 +10,28 @@ interface MonetizationStepProps extends StepProps {
   onChange: (value: MonetizationType[]) => void;
 }
 
-const monetizationOptions: CheckboxOption<MonetizationType>[] = [
-  {
-    value: 'consulting',
-    label: 'Consultoria',
-    description: 'Ofereço serviços de consultoria para empresas ou empreendedores',
-  },
-  {
-    value: 'courses',
-    label: 'Venda de cursos (produtos digitais)',
-    description: 'Crio e vendo cursos, e-books ou outros infoprodutos',
-  },
-  {
-    value: 'mentoring',
-    label: 'Mentorias',
-    description: 'Ofereço mentorias individuais ou em grupo',
-  },
-  {
-    value: 'advertising',
-    label: 'Publicidade/conteúdo',
-    description: 'Ganho com publicidade, patrocínios ou parcerias de conteúdo',
-  },
-  {
-    value: 'affiliate',
-    label: 'Afiliado',
-    description: 'Indico produtos/serviços e ganho comissões',
-  },
-  {
-    value: 'not_monetizing',
-    label: 'Ainda não monetizo',
-    description: 'Estou construindo minha audiência antes de monetizar',
-  },
-];
+export function MonetizationStep({ value, onChange, onNext, onBack }: MonetizationStepProps) {
+  const { t } = useTranslation();
 
-export function MonetizationStep({
-  value,
-  onChange,
-  onNext,
-  onBack,
-}: MonetizationStepProps) {
-  const handleChange = (selected: MonetizationType[]) => {
-    onChange(selected);
-  };
-
-  const canProceed = value.length >= 1;
+  const monetizationOptions: CheckboxOption<MonetizationType>[] = [
+    { value: 'consulting', label: t('q.monetization.consulting'), description: t('q.monetization.consultingDesc') },
+    { value: 'courses', label: t('q.monetization.courses'), description: t('q.monetization.coursesDesc') },
+    { value: 'mentoring', label: t('q.monetization.mentoring'), description: t('q.monetization.mentoringDesc') },
+    { value: 'advertising', label: t('q.monetization.advertising'), description: t('q.monetization.advertisingDesc') },
+    { value: 'affiliate', label: t('q.monetization.affiliateOpt'), description: t('q.monetization.affiliateOptDesc') },
+    { value: 'not_monetizing', label: t('q.monetization.notMonetizing'), description: t('q.monetization.notMonetizingDesc') },
+  ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col"
-    >
-      {/* Question Header */}
+    <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3 }} className="flex flex-col">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Como você monetiza hoje?
-        </h2>
-        <p className="mt-2 text-gray-600">
-          Selecione todas as opções que se aplicam a você
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">{t('q.monetization.title')}</h2>
+        <p className="mt-2 text-gray-600">{t('q.monetization.subtitle')}</p>
       </div>
-
-      {/* Options */}
-      <CheckboxGroup<MonetizationType>
-        name="monetization"
-        options={monetizationOptions}
-        value={value}
-        onChange={handleChange}
-        minSelections={1}
-      />
-
-      {/* Navigation */}
+      <CheckboxGroup<MonetizationType> name="monetization" options={monetizationOptions} value={value} onChange={onChange} minSelections={1} />
       <div className="mt-8 flex justify-between">
-        <button type="button" onClick={onBack} className="btn-secondary">
-          Voltar
-        </button>
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!canProceed}
-          className="btn-primary"
-        >
-          Continuar
-        </button>
+        <button type="button" onClick={onBack} className="btn-secondary">{t('common.back')}</button>
+        <button type="button" onClick={onNext} disabled={value.length < 1} className="btn-primary">{t('common.continue')}</button>
       </div>
     </motion.div>
   );

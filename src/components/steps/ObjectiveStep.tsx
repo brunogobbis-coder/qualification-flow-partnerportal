@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from '@/lib/useTranslation';
 import type { Objective, StepProps } from '@/types/qualification';
 
 interface ObjectiveStepProps extends StepProps {
@@ -11,77 +12,76 @@ interface ObjectiveStepProps extends StepProps {
 
 const NUVEMSHOP_SIGNUP_URL = 'https://www.nuvemshop.com.br/monte-sua-loja-virtual';
 
-interface PartnerTrackCard {
-  value: Objective;
-  icon: React.ReactNode;
-  headline: string;
-  description: string;
-  color: string;
-  bgColor: string;
-  borderColor: string;
-}
-
-const partnerTracks: PartnerTrackCard[] = [
-  {
-    value: 'tech_partner',
-    icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-      </svg>
-    ),
-    headline: 'Desenvolver apps e integrações',
-    description: 'Ideal para ERPs, empresas SaaS que querem integrar sua solução na Nuvemshop e para desenvolvedores que querem criar aplicativos e funcionalidades exclusivas na plataforma',
-    color: 'text-purple-600',
-    bgColor: 'bg-purple-50',
-    borderColor: 'border-purple-500',
-  },
-  {
-    value: 'service_provider',
-    icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
-    headline: 'Criar lojas virtuais para meus clientes',
-    description: 'Ideal para agências, freelancers e profissionais que prestam o serviço de criação e migração de lojas virtuais',
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-50',
-    borderColor: 'border-blue-500',
-  },
-  {
-    value: 'affiliate',
-    icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    headline: 'Indicar e ganhar comissões',
-    description: 'Ideal para influencers, criadores de conteúdo e marketeiros que querem indicar a Nuvemshop para seus clientes',
-    color: 'text-green-600',
-    bgColor: 'bg-green-50',
-    borderColor: 'border-green-500',
-  },
-  {
-    value: 'create_store',
-    icon: (
-      <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-      </svg>
-    ),
-    headline: 'Criar minha loja virtual',
-    description: 'Quer vender online? Crie sua loja Nuvemshop aqui',
-    color: 'text-orange-600',
-    bgColor: 'bg-orange-50',
-    borderColor: 'border-orange-500',
-  },
-];
-
 export function ObjectiveStep({
   value,
   onChange,
   onNext,
 }: ObjectiveStepProps) {
+  const { t } = useTranslation();
   const [showMerchantConfirmation, setShowMerchantConfirmation] = useState(false);
+
+  const partnerTracks: {
+    value: Objective;
+    icon: React.ReactNode;
+    headline: string;
+    description: string;
+    color: string;
+    bgColor: string;
+    borderColor: string;
+  }[] = [
+    {
+      value: 'tech_partner',
+      icon: (
+        <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+        </svg>
+      ),
+      headline: t('q.objective.techLabel'),
+      description: t('q.objective.techDesc'),
+      color: 'text-purple-600',
+      bgColor: 'bg-purple-50',
+      borderColor: 'border-purple-500',
+    },
+    {
+      value: 'service_provider',
+      icon: (
+        <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      ),
+      headline: t('q.objective.serviceLabel'),
+      description: t('q.objective.serviceDesc'),
+      color: 'text-blue-600',
+      bgColor: 'bg-blue-50',
+      borderColor: 'border-blue-500',
+    },
+    {
+      value: 'affiliate',
+      icon: (
+        <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      ),
+      headline: t('q.objective.affiliateLabel'),
+      description: t('q.objective.affiliateDesc'),
+      color: 'text-green-600',
+      bgColor: 'bg-green-50',
+      borderColor: 'border-green-500',
+    },
+    {
+      value: 'create_store',
+      icon: (
+        <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+      ),
+      headline: t('q.objective.merchantLabel'),
+      description: t('q.objective.merchantDesc'),
+      color: 'text-orange-600',
+      bgColor: 'bg-orange-50',
+      borderColor: 'border-orange-500',
+    },
+  ];
 
   const handleSelect = (selected: Objective) => {
     onChange(selected);
@@ -94,7 +94,6 @@ export function ObjectiveStep({
 
   const handleContinue = () => {
     if (value === 'create_store') {
-      // Redirect to Nuvemshop signup page
       window.location.href = NUVEMSHOP_SIGNUP_URL;
     } else {
       onNext();
@@ -119,10 +118,10 @@ export function ObjectiveStep({
       {/* Question Header */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          O que você quer fazer com a Nuvemshop?
+          {t('q.objective.title')}
         </h2>
         <p className="mt-2 text-gray-600">
-          Escolha a opção que melhor descreve seu objetivo para te direcionarmos ao programa certo
+          {t('q.objective.subtitle')}
         </p>
       </div>
 
@@ -202,13 +201,13 @@ export function ObjectiveStep({
             </div>
             <div className="flex-1">
               <h4 className="font-semibold text-orange-900">
-                Parece que você quer criar sua própria loja!
+                {t('q.objective.merchantConfirmTitle')}
               </h4>
               <p className="mt-1 text-sm text-orange-700">
-                Vamos te redirecionar para a página certa. Mas antes...
+                {t('q.objective.merchantConfirmMsg')}
               </p>
               <p className="mt-3 text-sm font-medium text-orange-800">
-                Você também tem interesse em oferecer serviços para outros lojistas?
+                {t('q.objective.merchantConfirmQuestion')}
               </p>
               <div className="mt-4 flex gap-3">
                 <button
@@ -216,14 +215,14 @@ export function ObjectiveStep({
                   onClick={handleAlsoOfferServices}
                   className="rounded-lg bg-orange-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-orange-700"
                 >
-                  Sim, também quero ser parceiro
+                  {t('q.objective.merchantYes')}
                 </button>
                 <button
                   type="button"
                   onClick={handleContinue}
                   className="rounded-lg border border-orange-300 bg-white px-4 py-2 text-sm font-medium text-orange-700 transition-colors hover:bg-orange-100"
                 >
-                  Não, só quero minha loja
+                  {t('q.objective.merchantNo')}
                 </button>
               </div>
             </div>
@@ -240,7 +239,7 @@ export function ObjectiveStep({
             disabled={!canProceed}
             className="btn-primary"
           >
-            Continuar
+            {t('common.continue')}
           </button>
         </div>
       )}

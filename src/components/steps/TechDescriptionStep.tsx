@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from '@/lib/useTranslation';
 import type { StepProps } from '@/types/qualification';
 
 interface TechDescriptionStepProps extends StepProps {
@@ -12,100 +13,62 @@ interface TechDescriptionStepProps extends StepProps {
 const MIN_LENGTH = 50;
 const MAX_LENGTH = 1000;
 
-export function TechDescriptionStep({
-  value,
-  onChange,
-  onNext,
-  onBack,
-}: TechDescriptionStepProps) {
+export function TechDescriptionStep({ value, onChange, onNext, onBack }: TechDescriptionStepProps) {
+  const { t } = useTranslation();
   const [touched, setTouched] = useState(false);
   const [error, setError] = useState<string>();
 
   useEffect(() => {
     if (touched) {
       if (!value.trim()) {
-        setError('Por favor, descreva sua solução');
+        setError(t('q.techDescription.errorRequired'));
       } else if (value.length < MIN_LENGTH) {
-        setError(`Descreva com pelo menos ${MIN_LENGTH} caracteres (atual: ${value.length})`);
+        setError(t('q.techDescription.errorMinLength').replace('{min}', String(MIN_LENGTH)).replace('{current}', String(value.length)));
       } else {
         setError(undefined);
       }
     }
-  }, [value, touched]);
-
-  const handleBlur = () => {
-    setTouched(true);
-  };
+  }, [value, touched, t]);
 
   const canProceed = value.trim().length >= MIN_LENGTH;
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col"
-    >
-      {/* Question Header */}
+    <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3 }} className="flex flex-col">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Descreva sua solução
-        </h2>
-        <p className="mt-2 text-gray-600">
-          Conte-nos brevemente o que você planeja desenvolver e como ajudará os lojistas
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">{t('q.techDescription.title')}</h2>
+        <p className="mt-2 text-gray-600">{t('q.techDescription.subtitle')}</p>
       </div>
 
-      {/* Textarea */}
       <div>
         <textarea
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          onBlur={handleBlur}
+          onBlur={() => setTouched(true)}
           rows={6}
           maxLength={MAX_LENGTH}
-          placeholder="Ex: Pretendo criar um aplicativo de gestão de estoque que sincroniza automaticamente com os fornecedores, permitindo que os lojistas..."
+          placeholder={t('q.techDescription.placeholder')}
           className={`${error ? 'input-error' : 'input'} resize-none`}
         />
         <div className="mt-2 flex justify-between text-sm">
           <span className={error ? 'text-red-600' : 'text-gray-500'}>
-            {error || `Mínimo de ${MIN_LENGTH} caracteres`}
+            {error || t('q.techDescription.minChars').replace('{min}', String(MIN_LENGTH))}
           </span>
-          <span className="text-gray-500">
-            {value.length}/{MAX_LENGTH}
-          </span>
+          <span className="text-gray-500">{value.length}/{MAX_LENGTH}</span>
         </div>
       </div>
 
-      {/* Tips */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-4"
-      >
-        <h4 className="mb-2 font-medium text-blue-900">Dicas para uma boa descrição:</h4>
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="mt-6 rounded-lg border border-blue-200 bg-blue-50 p-4">
+        <h4 className="mb-2 font-medium text-blue-900">{t('q.techDescription.tipsTitle')}</h4>
         <ul className="space-y-1 text-sm text-blue-700">
-          <li>• Qual problema sua solução resolve?</li>
-          <li>• Quem são os lojistas que mais se beneficiarão?</li>
-          <li>• O que diferencia sua solução das existentes?</li>
+          <li>• {t('q.techDescription.tip1')}</li>
+          <li>• {t('q.techDescription.tip2')}</li>
+          <li>• {t('q.techDescription.tip3')}</li>
         </ul>
       </motion.div>
 
-      {/* Navigation */}
       <div className="mt-8 flex justify-between">
-        <button type="button" onClick={onBack} className="btn-secondary">
-          Voltar
-        </button>
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!canProceed}
-          className="btn-primary"
-        >
-          Continuar
-        </button>
+        <button type="button" onClick={onBack} className="btn-secondary">{t('common.back')}</button>
+        <button type="button" onClick={onNext} disabled={!canProceed} className="btn-primary">{t('common.continue')}</button>
       </div>
     </motion.div>
   );

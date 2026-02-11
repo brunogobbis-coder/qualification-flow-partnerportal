@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import clsx from 'clsx';
+import { useTranslation } from '@/lib/useTranslation';
 import type { AudienceSize, StepProps } from '@/types/qualification';
 
 interface ProfileStepProps extends StepProps {
@@ -14,13 +15,6 @@ interface ProfileStepProps extends StepProps {
   onAudienceSizeChange: (value: AudienceSize) => void;
 }
 
-const audienceSizeOptions: { value: AudienceSize; label: string }[] = [
-  { value: 'under_1k', label: 'Menos de 1.000' },
-  { value: '1k_10k', label: '1.000 - 10.000' },
-  { value: '10k_100k', label: '10.000 - 100.000' },
-  { value: 'more_than_100k', label: 'Mais de 100.000' },
-];
-
 export function ProfileStep({
   username = '',
   siteUrl,
@@ -31,17 +25,24 @@ export function ProfileStep({
   onNext,
   onBack,
 }: ProfileStepProps) {
+  const { t } = useTranslation();
   const [siteUrlError, setSiteUrlError] = useState<string>();
   const [touched, setTouched] = useState(false);
 
-  // Validate site URL
   useEffect(() => {
     if (touched && !siteUrl.trim()) {
-      setSiteUrlError('Por favor, informe seu site ou rede social principal');
+      setSiteUrlError(t('q.profile.siteUrlError'));
     } else {
       setSiteUrlError(undefined);
     }
-  }, [siteUrl, touched]);
+  }, [siteUrl, touched, t]);
+
+  const audienceSizeOptions: { value: AudienceSize; label: string }[] = [
+    { value: 'under_1k', label: t('q.profile.under1k') },
+    { value: '1k_10k', label: t('q.profile.from1kTo10k') },
+    { value: '10k_100k', label: t('q.profile.from10kTo100k') },
+    { value: 'more_than_100k', label: t('q.profile.moreThan100k') },
+  ];
 
   const canProceed = siteUrl.trim().length > 0 && Boolean(audienceSize);
 
@@ -60,23 +61,20 @@ export function ProfileStep({
       transition={{ duration: 0.3 }}
       className="flex flex-col"
     >
-      {/* Question Header */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Conte mais sobre você
+          {t('q.profile.title')}
         </h2>
         <p className="mt-2 text-gray-600">
-          Precisamos conhecer sua presença online para entender melhor seu perfil
+          {t('q.profile.subtitle')}
         </p>
       </div>
 
-      {/* Form Fields */}
       <div className="space-y-6">
-        {/* Username (Optional) */}
         <div>
           <label htmlFor="username" className="label">
-            Seu nome de usuário ou apelido
-            <span className="ml-1 text-gray-400">(opcional)</span>
+            {t('q.profile.usernameLabel')}
+            <span className="ml-1 text-gray-400">{t('q.profile.optional')}</span>
           </label>
           <input
             type="text"
@@ -84,19 +82,18 @@ export function ProfileStep({
             name="username"
             value={username}
             onChange={(e) => onUsernameChange(e.target.value)}
-            placeholder="Ex: @seunome"
+            placeholder={t('q.profile.usernamePlaceholder')}
             className="input"
             autoComplete="username"
           />
           <p className="mt-1 text-sm text-gray-500">
-            Como você é conhecido nas redes sociais
+            {t('q.profile.usernameHint')}
           </p>
         </div>
 
-        {/* Site URL (Required) */}
         <div>
           <label htmlFor="siteUrl" className="label">
-            Site ou rede social principal
+            {t('q.profile.siteUrlLabel')}
             <span className="ml-1 text-red-500">*</span>
           </label>
           <input
@@ -106,7 +103,7 @@ export function ProfileStep({
             value={siteUrl}
             onChange={(e) => onSiteUrlChange(e.target.value)}
             onBlur={() => setTouched(true)}
-            placeholder="Ex: https://instagram.com/seuperfil"
+            placeholder={t('q.profile.siteUrlPlaceholder')}
             className={clsx('input', siteUrlError && 'input-error')}
             autoComplete="url"
             required
@@ -129,15 +126,14 @@ export function ProfileStep({
             </motion.p>
           ) : (
             <p className="mt-1 text-sm text-gray-500">
-              Instagram, YouTube, TikTok, LinkedIn, blog, ou website pessoal
+              {t('q.profile.siteUrlHint')}
             </p>
           )}
         </div>
 
-        {/* Audience Size (Required) */}
         <div>
           <label htmlFor="audienceSize" className="label">
-            Tamanho da audiência
+            {t('q.profile.audienceSizeLabel')}
             <span className="ml-1 text-red-500">*</span>
           </label>
           <select
@@ -147,7 +143,7 @@ export function ProfileStep({
             onChange={(e) => onAudienceSizeChange(e.target.value as AudienceSize)}
             className="input"
           >
-            <option value="" disabled>Selecione o tamanho da sua audiência</option>
+            <option value="" disabled>{t('q.profile.audienceSizePlaceholder')}</option>
             {audienceSizeOptions.map((opt) => (
               <option key={opt.value} value={opt.value}>
                 {opt.label}
@@ -155,15 +151,14 @@ export function ProfileStep({
             ))}
           </select>
           <p className="mt-1 text-sm text-gray-500">
-            Alcance mensal estimado em suas plataformas
+            {t('q.profile.audienceSizeHint')}
           </p>
         </div>
       </div>
 
-      {/* Navigation */}
       <div className="mt-8 flex justify-between">
         <button type="button" onClick={onBack} className="btn-secondary">
-          Voltar
+          {t('common.back')}
         </button>
         <button
           type="button"
@@ -171,7 +166,7 @@ export function ProfileStep({
           disabled={!canProceed}
           className="btn-primary"
         >
-          Continuar
+          {t('common.continue')}
         </button>
       </div>
     </motion.div>

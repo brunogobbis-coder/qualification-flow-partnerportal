@@ -3,6 +3,8 @@
 import { useState, useCallback, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import { ProgressBar } from '@/components/ui';
+import { LocaleProvider, useTranslation } from '@/lib/useTranslation';
+import type { Locale } from '@/lib/i18n';
 import { submitQualification, type SubmissionResult } from '@/lib/submission';
 import { analytics, trackObjectiveSelection, trackStepChange, trackFormSubmission, trackMerchantRedirect } from '@/lib/analytics';
 import { getOnboardingTrack } from '@/lib/onboarding';
@@ -101,7 +103,41 @@ type ServiceProviderStepId = (typeof SERVICE_PROVIDER_STEPS)[number];
 type TechPartnerStepId = (typeof TECH_PARTNER_STEPS)[number];
 type StepId = AffiliateStepId | ServiceProviderStepId | TechPartnerStepId;
 
+// Language toggle component (Tailwind-based)
+function LanguageToggle() {
+  const { locale, setLocale } = useTranslation();
+  const btn = (l: Locale, label: string) => (
+    <button
+      type="button"
+      onClick={() => setLocale(l)}
+      className={`rounded-md px-2.5 py-1 text-xs font-semibold transition-colors ${
+        locale === l
+          ? 'bg-blue-600 text-white'
+          : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+      }`}
+    >
+      {label}
+    </button>
+  );
+  return (
+    <div className="flex gap-1">
+      {btn('pt-BR', 'PT')}
+      {btn('es', 'ES')}
+    </div>
+  );
+}
+
 export default function QualificationFlow() {
+  return (
+    <LocaleProvider>
+      <QualificationFlowInner />
+    </LocaleProvider>
+  );
+}
+
+function QualificationFlowInner() {
+  const { t } = useTranslation();
+
   // Form state - Common
   const [objective, setObjective] = useState<Objective>();
   const [whatsapp, setWhatsapp] = useState<string>();
@@ -263,7 +299,7 @@ export default function QualificationFlow() {
         setSubmitError(result.message);
       }
     } catch (error) {
-      setSubmitError('Ocorreu um erro ao enviar seus dados. Por favor, tente novamente.');
+      setSubmitError(t('q.errorGeneric'));
       console.error('Submit error:', error);
     } finally {
       setIsSubmitting(false);
@@ -358,13 +394,13 @@ export default function QualificationFlow() {
     switch (objective) {
       case 'tech_partner':
         return {
-          title: 'Formulário concluído',
-          subtitle: 'Tech Partner',
-          message: submissionResult?.message || 'Obrigado pelo interesse em se tornar um parceiro Nuvemshop! Nossa equipe analisará sua proposta e entrará em contato.',
+          title: t('q.successTech.title'),
+          subtitle: t('q.successTech.subtitle'),
+          message: submissionResult?.message || t('q.successTech.message'),
           nextSteps: onboardingTrack?.steps.slice(0, 3).map(s => s.title) || [
-            'Análise da proposta pela equipe de parcerias',
-            'Contato para agendar call técnica (se aprovado)',
-            'Acesso à documentação e sandbox de desenvolvimento',
+            t('q.successTech.s1'),
+            t('q.successTech.s2'),
+            t('q.successTech.s3'),
           ],
           color: 'purple',
           applicationId,
@@ -373,13 +409,13 @@ export default function QualificationFlow() {
         };
       case 'service_provider':
         return {
-          title: 'Formulário concluído',
-          subtitle: 'Agency Partner',
-          message: submissionResult?.message || 'Confira seu e-mail, preparamos boas-vindas e uma trilha com materiais valiosos para você escalar conosco.',
+          title: t('q.successService.title'),
+          subtitle: t('q.successService.subtitle'),
+          message: submissionResult?.message || t('q.successService.message'),
           nextSteps: onboardingTrack?.steps.slice(0, 3).map(s => s.title) || [
-            'Acesso ao portal de parceiros e recursos exclusivos',
-            'Análise do perfil e portfólio pela equipe',
-            'Confira a trilha de materiais no seu e-mail para escalar conosco',
+            t('q.successService.s1'),
+            t('q.successService.s2'),
+            t('q.successService.s3'),
           ],
           color: 'blue',
           applicationId,
@@ -388,13 +424,13 @@ export default function QualificationFlow() {
         };
       case 'affiliate':
         return {
-          title: 'Formulário concluído',
-          subtitle: 'Afiliado',
-          message: submissionResult?.message || 'Parabéns! Seu cadastro foi aprovado automaticamente. Você receberá um WhatsApp com seu link de afiliado e instruções para começar.',
+          title: t('q.successAffiliate.title'),
+          subtitle: t('q.successAffiliate.subtitle'),
+          message: submissionResult?.message || t('q.successAffiliate.message'),
           nextSteps: onboardingTrack?.steps.slice(0, 3).map(s => s.title) || [
-            'Acesso imediato ao painel de afiliados',
-            'Link de indicação personalizado',
-            'Materiais de marketing e banners',
+            t('q.successAffiliate.s1'),
+            t('q.successAffiliate.s2'),
+            t('q.successAffiliate.s3'),
           ],
           color: isHighPotential ? 'yellow' : 'green',
           applicationId,
@@ -404,9 +440,9 @@ export default function QualificationFlow() {
         };
       default:
         return {
-          title: 'Cadastro concluído!',
+          title: t('q.successDefault.title'),
           subtitle: '',
-          message: 'Obrigado por completar sua qualificação. Entraremos em contato em breve pelo WhatsApp.',
+          message: t('q.successDefault.message'),
           nextSteps: [],
           color: 'green',
           applicationId,
@@ -461,14 +497,14 @@ export default function QualificationFlow() {
             {/* Application ID */}
             {successContent.applicationId && (
               <p className="mb-6 text-xs text-gray-400">
-                ID da candidatura: <span className="font-mono">{successContent.applicationId}</span>
+                {t('q.applicationId')}: <span className="font-mono">{successContent.applicationId}</span>
               </p>
             )}
 
             {/* Next Steps */}
             {successContent.nextSteps.length > 0 && (
               <div className="mb-6 rounded-lg bg-gray-50 p-4 text-left">
-                <h3 className="mb-3 font-semibold text-gray-900">Próximos passos:</h3>
+                <h3 className="mb-3 font-semibold text-gray-900">{t('q.nextStepsLabel')}</h3>
                 <ul className="space-y-2">
                   {successContent.nextSteps.map((step, index) => (
                     <li key={index} className="flex items-start gap-2 text-sm text-gray-600">
@@ -485,7 +521,7 @@ export default function QualificationFlow() {
             {/* Resources (for auto-approved affiliates) */}
             {successContent.isAutoApproved && successContent.resources && successContent.resources.length > 0 && (
               <div className={`mb-6 rounded-lg border ${colors.border} ${colors.bg} p-4 text-left`}>
-                <h3 className="mb-3 font-semibold text-gray-900">Recursos disponíveis:</h3>
+                <h3 className="mb-3 font-semibold text-gray-900">{t('q.availableResources')}</h3>
                 <ul className="space-y-2">
                   {successContent.resources.map((resource, index) => (
                     <li key={index}>
@@ -510,7 +546,7 @@ export default function QualificationFlow() {
               rel="noopener noreferrer"
               className="btn-primary inline-block text-center"
             >
-              Acessar Partner Portal
+              {t('common.accessPartnerPortal')}
             </a>
           </div>
         </div>
@@ -768,14 +804,18 @@ export default function QualificationFlow() {
     <div className="min-h-screen bg-white py-8 sm:py-12">
       <div className="mx-auto max-w-2xl px-4">
         {/* Header */}
-        <div className="mb-8 flex flex-col items-center">
-          {/* Nuvemshop Logo */}
-          <img
-            src="/logo.png"
-            alt="Nuvemshop"
-            className="h-12 w-auto"
-          />
-          <p className="mt-3 text-sm text-gray-500">Qualificação de Parceiros</p>
+        <div className="mb-8 flex items-center">
+          <div className="w-14" />
+          <div className="flex flex-1 flex-col items-center">
+            {/* Nuvemshop Logo */}
+            <img
+              src="/logo.png"
+              alt="Nuvemshop"
+              className="h-12 w-auto"
+            />
+            <p className="mt-3 text-sm text-gray-500">{t('q.header')}</p>
+          </div>
+          <LanguageToggle />
         </div>
 
         {/* Progress Bar - Only show after objective is selected */}

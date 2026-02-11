@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { RadioGroup } from '@/components/ui';
+import { useTranslation } from '@/lib/useTranslation';
 import type { StoreCreationFrequency, RadioOption, StepProps } from '@/types/qualification';
 
 interface StoreFrequencyStepProps extends StepProps {
@@ -9,80 +10,26 @@ interface StoreFrequencyStepProps extends StepProps {
   onChange: (value: StoreCreationFrequency) => void;
 }
 
-const storeFrequencyOptions: RadioOption<StoreCreationFrequency>[] = [
-  {
-    value: 'monthly',
-    label: 'Sim, já crio todos os meses',
-    description: 'Criação recorrente de lojas virtuais para clientes',
-  },
-  {
-    value: 'bimonthly_or_more',
-    label: 'Sim, em média a cada dois meses ou mais',
-    description: 'Criação periódica mas não mensal',
-  },
-  {
-    value: 'not_yet_interested',
-    label: 'Ainda não, mas temos interesse',
-    description: 'Queremos começar a criar lojas virtuais',
-  },
-  {
-    value: 'other_segment',
-    label: 'Não, atuamos em outro segmento',
-    description: 'Nosso foco principal não é criação de lojas',
-  },
-];
+export function StoreFrequencyStep({ value, onChange, onNext, onBack }: StoreFrequencyStepProps) {
+  const { t } = useTranslation();
 
-export function StoreFrequencyStep({
-  value,
-  onChange,
-  onNext,
-  onBack,
-}: StoreFrequencyStepProps) {
-  const handleSelect = (selected: StoreCreationFrequency) => {
-    onChange(selected);
-  };
-
-  const canProceed = Boolean(value);
+  const options: RadioOption<StoreCreationFrequency>[] = [
+    { value: 'monthly', label: t('q.storeFrequency.monthly'), description: t('q.storeFrequency.monthlyDesc') },
+    { value: 'bimonthly_or_more', label: t('q.storeFrequency.bimonthly'), description: t('q.storeFrequency.bimonthlyDesc') },
+    { value: 'not_yet_interested', label: t('q.storeFrequency.notYet'), description: t('q.storeFrequency.notYetDesc') },
+    { value: 'other_segment', label: t('q.storeFrequency.otherSegment'), description: t('q.storeFrequency.otherSegmentDesc') },
+  ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col"
-    >
-      {/* Question Header */}
+    <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3 }} className="flex flex-col">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Já implanta loja virtual na sua agência?
-        </h2>
-        <p className="mt-2 text-gray-600">
-          Queremos entender sua frequência de criação de lojas virtuais
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">{t('q.storeFrequency.title')}</h2>
+        <p className="mt-2 text-gray-600">{t('q.storeFrequency.subtitle')}</p>
       </div>
-
-      {/* Options */}
-      <RadioGroup<StoreCreationFrequency>
-        name="storeFrequency"
-        options={storeFrequencyOptions}
-        value={value}
-        onChange={handleSelect}
-      />
-
-      {/* Navigation */}
+      <RadioGroup<StoreCreationFrequency> name="storeFrequency" options={options} value={value} onChange={onChange} />
       <div className="mt-8 flex justify-between">
-        <button type="button" onClick={onBack} className="btn-secondary">
-          Voltar
-        </button>
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!canProceed}
-          className="btn-primary"
-        >
-          Continuar
-        </button>
+        <button type="button" onClick={onBack} className="btn-secondary">{t('common.back')}</button>
+        <button type="button" onClick={onNext} disabled={!value} className="btn-primary">{t('common.continue')}</button>
       </div>
     </motion.div>
   );

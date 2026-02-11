@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { CheckboxGroup } from '@/components/ui';
+import { useTranslation } from '@/lib/useTranslation';
 import type { PromotionChannel, CheckboxOption, StepProps } from '@/types/qualification';
 
 interface AffiliatePromotionStepProps extends StepProps {
@@ -9,101 +10,30 @@ interface AffiliatePromotionStepProps extends StepProps {
   onChange: (value: PromotionChannel[]) => void;
 }
 
-const promotionChannelOptions: CheckboxOption<PromotionChannel>[] = [
-  {
-    value: 'blog',
-    label: 'Blog / Marketing de conteúdo',
-    description: 'Artigos, reviews e conteúdo escrito',
-  },
-  {
-    value: 'youtube',
-    label: 'YouTube / Vídeo',
-    description: 'Canal no YouTube ou produção de vídeos',
-  },
-  {
-    value: 'social_media',
-    label: 'Redes sociais',
-    description: 'Instagram, TikTok, Twitter/X, Facebook, etc.',
-  },
-  {
-    value: 'email_marketing',
-    label: 'Email marketing',
-    description: 'Newsletter ou listas de email',
-  },
-  {
-    value: 'paid_advertising',
-    label: 'Publicidade paga',
-    description: 'Anúncios em Google, Meta, etc.',
-  },
-  {
-    value: 'community',
-    label: 'Comunidade / Fóruns',
-    description: 'Grupos, comunidades online ou fóruns',
-  },
-  {
-    value: 'podcast',
-    label: 'Podcast',
-    description: 'Produção ou participação em podcasts',
-  },
-  {
-    value: 'other',
-    label: 'Outro',
-    description: 'Outras formas de promoção',
-  },
-];
+export function AffiliatePromotionStep({ value, onChange, onNext, onBack }: AffiliatePromotionStepProps) {
+  const { t } = useTranslation();
 
-export function AffiliatePromotionStep({
-  value,
-  onChange,
-  onNext,
-  onBack,
-}: AffiliatePromotionStepProps) {
-  const handleChange = (selected: PromotionChannel[]) => {
-    onChange(selected);
-  };
-
-  const canProceed = value.length >= 1;
+  const options: CheckboxOption<PromotionChannel>[] = [
+    { value: 'blog', label: t('q.promotion.blogOpt'), description: t('q.promotion.blogOptDesc') },
+    { value: 'youtube', label: t('q.promotion.youtubeOpt'), description: t('q.promotion.youtubeOptDesc') },
+    { value: 'social_media', label: t('q.promotion.socialMedia'), description: t('q.promotion.socialMediaDesc') },
+    { value: 'email_marketing', label: t('q.promotion.emailMarketing'), description: t('q.promotion.emailMarketingDesc') },
+    { value: 'paid_advertising', label: t('q.promotion.paidAds'), description: t('q.promotion.paidAdsDesc') },
+    { value: 'community', label: t('q.promotion.communityOpt'), description: t('q.promotion.communityOptDesc') },
+    { value: 'podcast', label: t('q.promotion.podcastOpt'), description: t('q.promotion.podcastOptDesc') },
+    { value: 'other', label: t('q.promotion.otherOpt'), description: t('q.promotion.otherOptDesc') },
+  ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col"
-    >
-      {/* Question Header */}
+    <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3 }} className="flex flex-col">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Como você pretende promover a Nuvemshop?
-        </h2>
-        <p className="mt-2 text-gray-600">
-          Selecione todos os canais que você utiliza ou pretende utilizar
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">{t('q.promotion.title')}</h2>
+        <p className="mt-2 text-gray-600">{t('q.promotion.subtitle')}</p>
       </div>
-
-      {/* Options */}
-      <CheckboxGroup<PromotionChannel>
-        name="promotionChannels"
-        options={promotionChannelOptions}
-        value={value}
-        onChange={handleChange}
-        minSelections={1}
-      />
-
-      {/* Navigation */}
+      <CheckboxGroup<PromotionChannel> name="promotionChannels" options={options} value={value} onChange={onChange} minSelections={1} />
       <div className="mt-8 flex justify-between">
-        <button type="button" onClick={onBack} className="btn-secondary">
-          Voltar
-        </button>
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!canProceed}
-          className="btn-primary"
-        >
-          Continuar
-        </button>
+        <button type="button" onClick={onBack} className="btn-secondary">{t('common.back')}</button>
+        <button type="button" onClick={onNext} disabled={value.length < 1} className="btn-primary">{t('common.continue')}</button>
       </div>
     </motion.div>
   );

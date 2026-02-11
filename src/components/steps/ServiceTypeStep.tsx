@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { RadioGroup } from '@/components/ui';
+import { useTranslation } from '@/lib/useTranslation';
 import type { ServiceType, RadioOption, StepProps } from '@/types/qualification';
 
 interface ServiceTypeStepProps extends StepProps {
@@ -9,85 +10,27 @@ interface ServiceTypeStepProps extends StepProps {
   onChange: (value: ServiceType) => void;
 }
 
-const serviceTypeOptions: RadioOption<ServiceType>[] = [
-  {
-    value: 'agency',
-    label: 'Agência',
-    description: 'Empresa que oferece serviços completos de e-commerce para múltiplos clientes',
-  },
-  {
-    value: 'freelancer',
-    label: 'Freelancer',
-    description: 'Profissional autônomo que presta serviços de forma independente',
-  },
-  {
-    value: 'consultant',
-    label: 'Consultor',
-    description: 'Especialista que oferece consultoria estratégica em e-commerce',
-  },
-  {
-    value: 'developer',
-    label: 'Desenvolvedor',
-    description: 'Profissional focado em desenvolvimento técnico e integrações',
-  },
-  {
-    value: 'traffic_manager',
-    label: 'Gestor de tráfego',
-    description: 'Especialista em mídia paga e gestão de tráfego para lojas virtuais',
-  },
-];
+export function ServiceTypeStep({ value, onChange, onNext, onBack }: ServiceTypeStepProps) {
+  const { t } = useTranslation();
 
-export function ServiceTypeStep({
-  value,
-  onChange,
-  onNext,
-  onBack,
-}: ServiceTypeStepProps) {
-  const handleSelect = (selected: ServiceType) => {
-    onChange(selected);
-  };
-
-  const canProceed = Boolean(value);
+  const options: RadioOption<ServiceType>[] = [
+    { value: 'agency', label: t('q.serviceType.agency'), description: t('q.serviceType.agencyDesc') },
+    { value: 'freelancer', label: t('q.serviceType.freelancer'), description: t('q.serviceType.freelancerDesc') },
+    { value: 'consultant', label: t('q.serviceType.consultant'), description: t('q.serviceType.consultantDesc') },
+    { value: 'developer', label: t('q.serviceType.developer'), description: t('q.serviceType.developerDesc') },
+    { value: 'traffic_manager', label: t('q.serviceType.trafficMgr'), description: t('q.serviceType.trafficMgrDesc') },
+  ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col"
-    >
-      {/* Question Header */}
+    <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3 }} className="flex flex-col">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Qual tipo de prestador de serviço você é?
-        </h2>
-        <p className="mt-2 text-gray-600">
-          Selecione a opção que melhor descreve seu modelo de trabalho
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">{t('q.serviceType.title')}</h2>
+        <p className="mt-2 text-gray-600">{t('q.serviceType.subtitle')}</p>
       </div>
-
-      {/* Options */}
-      <RadioGroup<ServiceType>
-        name="serviceType"
-        options={serviceTypeOptions}
-        value={value}
-        onChange={handleSelect}
-      />
-
-      {/* Navigation */}
+      <RadioGroup<ServiceType> name="serviceType" options={options} value={value} onChange={onChange} />
       <div className="mt-8 flex justify-between">
-        <button type="button" onClick={onBack} className="btn-secondary">
-          Voltar
-        </button>
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!canProceed}
-          className="btn-primary"
-        >
-          Continuar
-        </button>
+        <button type="button" onClick={onBack} className="btn-secondary">{t('common.back')}</button>
+        <button type="button" onClick={onNext} disabled={!value} className="btn-primary">{t('common.continue')}</button>
       </div>
     </motion.div>
   );

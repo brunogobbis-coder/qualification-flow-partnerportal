@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { RadioGroup } from '@/components/ui';
+import { useTranslation } from '@/lib/useTranslation';
 import type { SolutionType, RadioOption, StepProps } from '@/types/qualification';
 
 interface TechSolutionTypeStepProps extends StepProps {
@@ -9,80 +10,26 @@ interface TechSolutionTypeStepProps extends StepProps {
   onChange: (value: SolutionType) => void;
 }
 
-const solutionTypeOptions: RadioOption<SolutionType>[] = [
-  {
-    value: 'app',
-    label: 'Aplicativo',
-    description: 'App para a loja de aplicativos Nuvemshop que adiciona funcionalidades aos lojistas',
-  },
-  {
-    value: 'theme',
-    label: 'Tema / Template',
-    description: 'Template de design para lojas virtuais na plataforma',
-  },
-  {
-    value: 'integration',
-    label: 'Integração / Conector',
-    description: 'Conexão entre Nuvemshop e outras plataformas ou serviços',
-  },
-  {
-    value: 'erp_crm',
-    label: 'Integração ERP/CRM',
-    description: 'Integração com sistemas de gestão empresarial ou CRM',
-  },
-];
+export function TechSolutionTypeStep({ value, onChange, onNext, onBack }: TechSolutionTypeStepProps) {
+  const { t } = useTranslation();
 
-export function TechSolutionTypeStep({
-  value,
-  onChange,
-  onNext,
-  onBack,
-}: TechSolutionTypeStepProps) {
-  const handleSelect = (selected: SolutionType) => {
-    onChange(selected);
-  };
-
-  const canProceed = Boolean(value);
+  const options: RadioOption<SolutionType>[] = [
+    { value: 'app', label: t('q.techSolution.app'), description: t('q.techSolution.appDesc') },
+    { value: 'theme', label: t('q.techSolution.theme'), description: t('q.techSolution.themeDesc') },
+    { value: 'integration', label: t('q.techSolution.integration'), description: t('q.techSolution.integrationDesc') },
+    { value: 'erp_crm', label: t('q.techSolution.erpCrm'), description: t('q.techSolution.erpCrmDesc') },
+  ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col"
-    >
-      {/* Question Header */}
+    <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3 }} className="flex flex-col">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          O que você quer desenvolver?
-        </h2>
-        <p className="mt-2 text-gray-600">
-          Selecione o tipo de solução que você planeja criar para o ecossistema Nuvemshop
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">{t('q.techSolution.title')}</h2>
+        <p className="mt-2 text-gray-600">{t('q.techSolution.subtitle')}</p>
       </div>
-
-      {/* Options */}
-      <RadioGroup<SolutionType>
-        name="solutionType"
-        options={solutionTypeOptions}
-        value={value}
-        onChange={handleSelect}
-      />
-
-      {/* Navigation */}
+      <RadioGroup<SolutionType> name="solutionType" options={options} value={value} onChange={onChange} />
       <div className="mt-8 flex justify-between">
-        <button type="button" onClick={onBack} className="btn-secondary">
-          Voltar
-        </button>
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!canProceed}
-          className="btn-primary"
-        >
-          Continuar
-        </button>
+        <button type="button" onClick={onBack} className="btn-secondary">{t('common.back')}</button>
+        <button type="button" onClick={onNext} disabled={!value} className="btn-primary">{t('common.continue')}</button>
       </div>
     </motion.div>
   );

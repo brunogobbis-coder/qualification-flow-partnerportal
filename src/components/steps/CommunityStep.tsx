@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { RadioGroup } from '@/components/ui';
+import { useTranslation } from '@/lib/useTranslation';
 import type { CommunityType, RadioOption, StepProps } from '@/types/qualification';
 
 interface CommunityStepProps extends StepProps {
@@ -9,80 +10,26 @@ interface CommunityStepProps extends StepProps {
   onChange: (value: CommunityType) => void;
 }
 
-const communityOptions: RadioOption<CommunityType>[] = [
-  {
-    value: 'whatsapp_telegram',
-    label: 'Grupo de WhatsApp / Telegram ativo',
-    description: 'Tenho um grupo onde interajo regularmente com empreendedores',
-  },
-  {
-    value: 'newsletter',
-    label: 'Newsletter com alta taxa de abertura',
-    description: 'Mantenho uma lista de e-mails engajada',
-  },
-  {
-    value: 'private_group',
-    label: 'Grupo privado de alunos (Facebook/Discord)',
-    description: 'Tenho uma comunidade fechada em plataformas como Facebook ou Discord',
-  },
-  {
-    value: 'social_posts_only',
-    label: 'Não, só me comunico através de posts/stories nas redes sociais',
-    description: 'Minha comunicação é aberta, sem grupos ou comunidades fechadas',
-  },
-];
+export function CommunityStep({ value, onChange, onNext, onBack }: CommunityStepProps) {
+  const { t } = useTranslation();
 
-export function CommunityStep({
-  value,
-  onChange,
-  onNext,
-  onBack,
-}: CommunityStepProps) {
-  const handleSelect = (selected: CommunityType) => {
-    onChange(selected);
-  };
-
-  const canProceed = Boolean(value);
+  const options: RadioOption<CommunityType>[] = [
+    { value: 'whatsapp_telegram', label: t('q.community.whatsapp'), description: t('q.community.whatsappDesc') },
+    { value: 'newsletter', label: t('q.community.newsletter'), description: t('q.community.newsletterDesc') },
+    { value: 'private_group', label: t('q.community.privateGroup'), description: t('q.community.privateGroupDesc') },
+    { value: 'social_posts_only', label: t('q.community.socialOnly'), description: t('q.community.socialOnlyDesc') },
+  ];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 50 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: -50 }}
-      transition={{ duration: 0.3 }}
-      className="flex flex-col"
-    >
-      {/* Question Header */}
+    <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3 }} className="flex flex-col">
       <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
-          Tem comunidades fechadas com empreendedores?
-        </h2>
-        <p className="mt-2 text-gray-600">
-          Como você se comunica com sua audiência de empreendedores?
-        </p>
+        <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">{t('q.community.title')}</h2>
+        <p className="mt-2 text-gray-600">{t('q.community.subtitle')}</p>
       </div>
-
-      {/* Options */}
-      <RadioGroup<CommunityType>
-        name="communityType"
-        options={communityOptions}
-        value={value}
-        onChange={handleSelect}
-      />
-
-      {/* Navigation */}
+      <RadioGroup<CommunityType> name="communityType" options={options} value={value} onChange={onChange} />
       <div className="mt-8 flex justify-between">
-        <button type="button" onClick={onBack} className="btn-secondary">
-          Voltar
-        </button>
-        <button
-          type="button"
-          onClick={onNext}
-          disabled={!canProceed}
-          className="btn-primary"
-        >
-          Continuar
-        </button>
+        <button type="button" onClick={onBack} className="btn-secondary">{t('common.back')}</button>
+        <button type="button" onClick={onNext} disabled={!value} className="btn-primary">{t('common.continue')}</button>
       </div>
     </motion.div>
   );
