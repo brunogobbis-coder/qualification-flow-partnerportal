@@ -675,9 +675,6 @@ export default function FlowPage() {
                     <li>• Cobertura geográfica</li>
                   </ul>
                 </div>
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="text-sm"><strong>SLA:</strong> 5-7 dias úteis (Tech) / 3-5 dias úteis (Service)</p>
-                </div>
               </div>
             </div>
 
@@ -705,9 +702,6 @@ export default function FlowPage() {
                     <li>• Contato prioritário do time</li>
                     <li>• Benefícios exclusivos</li>
                   </ul>
-                </div>
-                <div className="bg-gray-50 rounded-lg p-3">
-                  <p className="text-sm"><strong>SLA:</strong> Imediato</p>
                 </div>
               </div>
             </div>
