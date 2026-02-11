@@ -1,4 +1,4 @@
-export type Objective = 'create_store' | 'affiliate' | 'tech_partner' | 'service_provider';
+export type Objective = 'affiliate' | 'tech_partner' | 'service_provider';
 
 export type MonetizationType = 
   | 'consulting'

@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTranslation } from '@/lib/useTranslation';
 import type { Objective, StepProps } from '@/types/qualification';
@@ -10,15 +9,12 @@ interface ObjectiveStepProps extends StepProps {
   onChange: (value: Objective) => void;
 }
 
-const NUVEMSHOP_SIGNUP_URL = 'https://www.nuvemshop.com.br/monte-sua-loja-virtual';
-
 export function ObjectiveStep({
   value,
   onChange,
   onNext,
 }: ObjectiveStepProps) {
   const { t } = useTranslation();
-  const [showMerchantConfirmation, setShowMerchantConfirmation] = useState(false);
 
   const partnerTracks: {
     value: Objective;
@@ -68,41 +64,10 @@ export function ObjectiveStep({
       bgColor: 'bg-green-50',
       borderColor: 'border-green-500',
     },
-    {
-      value: 'create_store',
-      icon: (
-        <svg className="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-        </svg>
-      ),
-      headline: t('q.objective.merchantLabel'),
-      description: t('q.objective.merchantDesc'),
-      color: 'text-orange-600',
-      bgColor: 'bg-orange-50',
-      borderColor: 'border-orange-500',
-    },
   ];
 
   const handleSelect = (selected: Objective) => {
     onChange(selected);
-    if (selected === 'create_store') {
-      setShowMerchantConfirmation(true);
-    } else {
-      setShowMerchantConfirmation(false);
-    }
-  };
-
-  const handleContinue = () => {
-    if (value === 'create_store') {
-      window.location.href = NUVEMSHOP_SIGNUP_URL;
-    } else {
-      onNext();
-    }
-  };
-
-  const handleAlsoOfferServices = () => {
-    onChange('service_provider');
-    setShowMerchantConfirmation(false);
   };
 
   const canProceed = Boolean(value);
@@ -186,63 +151,17 @@ export function ObjectiveStep({
         })}
       </div>
 
-      {/* Merchant Redirect Confirmation */}
-      {showMerchantConfirmation && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mt-6 rounded-xl border-2 border-orange-200 bg-orange-50 p-5"
-        >
-          <div className="flex items-start gap-4">
-            <div className="rounded-full bg-orange-100 p-2">
-              <svg className="h-6 w-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-            </div>
-            <div className="flex-1">
-              <h4 className="font-semibold text-orange-900">
-                {t('q.objective.merchantConfirmTitle')}
-              </h4>
-              <p className="mt-1 text-sm text-orange-700">
-                {t('q.objective.merchantConfirmMsg')}
-              </p>
-              <p className="mt-3 text-sm font-medium text-orange-800">
-                {t('q.objective.merchantConfirmQuestion')}
-              </p>
-              <div className="mt-4 flex gap-3">
-                <button
-                  type="button"
-                  onClick={handleAlsoOfferServices}
-                  className="rounded-lg bg-orange-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-orange-700"
-                >
-                  {t('q.objective.merchantYes')}
-                </button>
-                <button
-                  type="button"
-                  onClick={handleContinue}
-                  className="rounded-lg border border-orange-300 bg-white px-4 py-2 text-sm font-medium text-orange-700 transition-colors hover:bg-orange-100"
-                >
-                  {t('q.objective.merchantNo')}
-                </button>
-              </div>
-            </div>
-          </div>
-        </motion.div>
-      )}
-
       {/* Navigation */}
-      {!showMerchantConfirmation && (
-        <div className="mt-8 flex justify-end">
-          <button
-            type="button"
-            onClick={handleContinue}
-            disabled={!canProceed}
-            className="btn-primary"
-          >
-            {t('common.continue')}
-          </button>
-        </div>
-      )}
+      <div className="mt-8 flex justify-end">
+        <button
+          type="button"
+          onClick={onNext}
+          disabled={!canProceed}
+          className="btn-primary"
+        >
+          {t('common.continue')}
+        </button>
+      </div>
     </motion.div>
   );
 }

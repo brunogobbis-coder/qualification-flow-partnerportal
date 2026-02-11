@@ -6,7 +6,7 @@ import { ProgressBar } from '@/components/ui';
 import { LocaleProvider, useTranslation } from '@/lib/useTranslation';
 import type { Locale } from '@/lib/i18n';
 import { submitQualification, type SubmissionResult } from '@/lib/submission';
-import { analytics, trackObjectiveSelection, trackStepChange, trackFormSubmission, trackMerchantRedirect } from '@/lib/analytics';
+import { analytics, trackObjectiveSelection, trackStepChange, trackFormSubmission } from '@/lib/analytics';
 import { getOnboardingTrack } from '@/lib/onboarding';
 import {
   ObjectiveStep,
@@ -219,17 +219,12 @@ function QualificationFlowInner() {
   }, [currentStepIndex]);
 
   const handleObjectiveChange = useCallback((value: Objective) => {
-    const previousObjective = objective;
     setObjective(value);
     // Reset step index when changing objective to avoid invalid states
     setCurrentStepIndex(0);
     // Track objective selection
     trackObjectiveSelection(value);
-    // Track if merchant was redirected to service partner
-    if (previousObjective === 'create_store' && value === 'service_provider') {
-      trackMerchantRedirect(true);
-    }
-  }, [objective]);
+  }, []);
 
   const handleSubmit = useCallback(async () => {
     setIsSubmitting(true);

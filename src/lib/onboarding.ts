@@ -20,7 +20,7 @@ export interface OnboardingTrack {
   }[];
 }
 
-export const onboardingTracks: Record<Exclude<Objective, 'create_store'>, OnboardingTrack> = {
+export const onboardingTracks: Record<Objective, OnboardingTrack> = {
   tech_partner: {
     title: 'Tech Partner Onboarding',
     subtitle: 'Bem-vindo ao programa de desenvolvedores',
@@ -183,7 +183,6 @@ export const onboardingTracks: Record<Exclude<Objective, 'create_store'>, Onboar
 
 // Get onboarding track by objective
 export function getOnboardingTrack(objective: Objective): OnboardingTrack | null {
-  if (objective === 'create_store') return null;
   return onboardingTracks[objective];
 }
 
