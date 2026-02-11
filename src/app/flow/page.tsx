@@ -20,7 +20,7 @@ const techPartnerSteps: StepData[] = [
     name: 'Objetivo', 
     description: 'Seleção do tipo de parceria',
     fieldType: 'radio',
-    options: ['Tech Partner', 'Agency Partner', 'Afiliado', 'Criar loja (redirect)'],
+    options: ['Tech Partner', 'Agency Partner', 'Afiliado'],
     isDefault: true
   },
   { 
@@ -73,7 +73,7 @@ const servicePartnerSteps: StepData[] = [
     name: 'Objetivo', 
     description: 'Seleção do tipo de parceria',
     fieldType: 'radio',
-    options: ['Tech Partner', 'Agency Partner', 'Afiliado', 'Criar loja (redirect)'],
+    options: ['Tech Partner', 'Agency Partner', 'Afiliado'],
     isDefault: true
   },
   { 
@@ -140,7 +140,7 @@ const affiliateSteps: StepData[] = [
     name: 'Objetivo', 
     description: 'Seleção do tipo de parceria',
     fieldType: 'radio',
-    options: ['Tech Partner', 'Agency Partner', 'Afiliado', 'Criar loja (redirect)'],
+    options: ['Tech Partner', 'Agency Partner', 'Afiliado'],
     isDefault: true
   },
   { 
@@ -296,106 +296,86 @@ function StepFlow({ steps, color }: { steps: StepData[]; color: string }) {
 function MainFlowDiagram() {
   return (
     <div className="bg-gray-50 rounded-xl p-6 overflow-x-auto">
-      <svg viewBox="0 0 800 530" className="w-full min-w-[600px]" style={{ maxHeight: '530px' }}>
+      <svg viewBox="0 0 700 500" className="w-full min-w-[500px]" style={{ maxHeight: '500px' }}>
         {/* Definitions */}
         <defs>
           <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
             <polygon points="0 0, 10 3.5, 0 7" fill="#6B7280" />
           </marker>
-          <pattern id="diag-stripe" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-            <rect width="3" height="8" fill="rgba(255,255,255,0.15)" />
-          </pattern>
         </defs>
 
         {/* 1. Partner Portal */}
-        <rect x="325" y="15" width="150" height="44" rx="8" fill="#3B82F6" />
-        <text x="400" y="42" textAnchor="middle" fill="white" fontSize="14" fontWeight="600">Partner Portal</text>
+        <rect x="275" y="15" width="150" height="44" rx="8" fill="#3B82F6" />
+        <text x="350" y="42" textAnchor="middle" fill="white" fontSize="14" fontWeight="600">Partner Portal</text>
 
         {/* Arrow: Portal -> Signup */}
-        <line x1="400" y1="59" x2="400" y2="80" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <line x1="350" y1="59" x2="350" y2="80" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
 
         {/* 2. Signup */}
-        <rect x="340" y="80" width="120" height="40" rx="8" fill="#8B5CF6" />
-        <text x="400" y="105" textAnchor="middle" fill="white" fontSize="12" fontWeight="600">Signup</text>
+        <rect x="290" y="80" width="120" height="40" rx="8" fill="#8B5CF6" />
+        <text x="350" y="105" textAnchor="middle" fill="white" fontSize="12" fontWeight="600">Signup</text>
 
         {/* Arrow: Signup -> Question */}
-        <line x1="400" y1="120" x2="400" y2="148" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <line x1="350" y1="120" x2="350" y2="148" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
 
         {/* 3. Initial Question */}
-        <rect x="300" y="148" width="200" height="44" rx="8" fill="#6366F1" />
-        <text x="400" y="175" textAnchor="middle" fill="white" fontSize="12" fontWeight="600">Qual é seu objetivo?</text>
+        <rect x="250" y="148" width="200" height="44" rx="8" fill="#6366F1" />
+        <text x="350" y="175" textAnchor="middle" fill="white" fontSize="12" fontWeight="600">Qual é seu objetivo?</text>
 
-        {/* Arrows from Question to Tracks */}
-        <path d="M 350 192 Q 200 220 120 248" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <path d="M 375 192 Q 325 220 300 248" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <path d="M 425 192 Q 475 220 500 248" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <path d="M 450 192 Q 600 220 680 248" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        {/* Arrows from Question to 3 Tracks */}
+        <path d="M 310 192 Q 200 220 120 248" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <line x1="350" y1="192" x2="350" y2="248" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <path d="M 390 192 Q 500 220 580 248" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
 
-        {/* 4. Four Tracks */}
+        {/* 4. Three Tracks */}
         {/* Tech Partner */}
         <rect x="50" y="248" width="140" height="46" rx="8" fill="#9333EA" />
         <text x="120" y="266" textAnchor="middle" fill="white" fontSize="11" fontWeight="600">Tech Partner</text>
         <text x="120" y="282" textAnchor="middle" fill="white" fontSize="10">Apps e integrações</text>
 
         {/* Agency Partner */}
-        <rect x="230" y="248" width="140" height="46" rx="8" fill="#3B82F6" />
-        <text x="300" y="266" textAnchor="middle" fill="white" fontSize="11" fontWeight="600">Agency Partner</text>
-        <text x="300" y="282" textAnchor="middle" fill="white" fontSize="10">Serviços profissionais</text>
+        <rect x="280" y="248" width="140" height="46" rx="8" fill="#3B82F6" />
+        <text x="350" y="266" textAnchor="middle" fill="white" fontSize="11" fontWeight="600">Agency Partner</text>
+        <text x="350" y="282" textAnchor="middle" fill="white" fontSize="10">Serviços profissionais</text>
 
         {/* Affiliate */}
-        <rect x="430" y="248" width="140" height="46" rx="8" fill="#22C55E" />
-        <text x="500" y="266" textAnchor="middle" fill="white" fontSize="11" fontWeight="600">Affiliate</text>
-        <text x="500" y="282" textAnchor="middle" fill="white" fontSize="10">Indicar e ganhar</text>
-
-        {/* Merchant */}
-        <rect x="610" y="248" width="140" height="46" rx="8" fill="#F97316" />
-        <text x="680" y="266" textAnchor="middle" fill="white" fontSize="11" fontWeight="600">Merchant</text>
-        <text x="680" y="282" textAnchor="middle" fill="white" fontSize="10">Criar loja</text>
+        <rect x="510" y="248" width="140" height="46" rx="8" fill="#22C55E" />
+        <text x="580" y="266" textAnchor="middle" fill="white" fontSize="11" fontWeight="600">Affiliate</text>
+        <text x="580" y="282" textAnchor="middle" fill="white" fontSize="10">Indicar e ganhar</text>
 
         {/* 5. Forms */}
-        {/* Arrows from Tracks to Forms */}
         <line x1="120" y1="294" x2="120" y2="328" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <line x1="300" y1="294" x2="300" y2="328" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <line x1="500" y1="294" x2="500" y2="328" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <line x1="680" y1="294" x2="680" y2="328" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <line x1="350" y1="294" x2="350" y2="328" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <line x1="580" y1="294" x2="580" y2="328" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
 
         <rect x="50" y="328" width="140" height="38" rx="6" fill="#A855F7" opacity="0.8" />
         <text x="120" y="351" textAnchor="middle" fill="white" fontSize="11">Tech Form (7 steps)</text>
 
-        <rect x="230" y="328" width="140" height="38" rx="6" fill="#60A5FA" opacity="0.8" />
-        <text x="300" y="351" textAnchor="middle" fill="white" fontSize="11">Service Form (9 steps)</text>
+        <rect x="280" y="328" width="140" height="38" rx="6" fill="#60A5FA" opacity="0.8" />
+        <text x="350" y="351" textAnchor="middle" fill="white" fontSize="11">Service Form (9 steps)</text>
 
-        <rect x="430" y="328" width="140" height="38" rx="6" fill="#4ADE80" opacity="0.8" />
-        <text x="500" y="351" textAnchor="middle" fill="white" fontSize="11">Affiliate Form (11 steps)</text>
-
-        <rect x="610" y="328" width="140" height="38" rx="6" fill="#FB923C" opacity="0.8" />
-        <text x="680" y="351" textAnchor="middle" fill="white" fontSize="11">Redirect to Signup</text>
-
-        {/* Merchant redirect arrow out */}
-        <line x1="750" y1="347" x2="785" y2="347" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <text x="775" y="338" fontSize="10" fill="#6B7280">Exit</text>
+        <rect x="510" y="328" width="140" height="38" rx="6" fill="#4ADE80" opacity="0.8" />
+        <text x="580" y="351" textAnchor="middle" fill="white" fontSize="11">Affiliate Form (11 steps)</text>
 
         {/* 6. All forms -> Partner Portal Access */}
-        {/* Arrows from Forms to Portal Access */}
-        <path d="M 120 366 Q 120 400 280 430" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <path d="M 300 366 Q 300 400 330 430" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
-        <path d="M 500 366 Q 500 400 460 430" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <path d="M 120 366 Q 120 395 260 420" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <path d="M 350 366 Q 350 395 340 420" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
+        <path d="M 580 366 Q 580 395 440 420" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
 
         {/* Partner Portal Access */}
-        <rect x="265" y="430" width="190" height="44" rx="8" fill="#0EA5E9" />
-        <text x="360" y="457" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Partner Portal Access</text>
+        <rect x="255" y="420" width="190" height="44" rx="8" fill="#0EA5E9" />
+        <text x="350" y="447" textAnchor="middle" fill="white" fontSize="13" fontWeight="600">Partner Portal Access</text>
 
-        {/* 7. Partner Program Review (parallel - dashed box to the right) */}
-        <rect x="560" y="415" width="190" height="56" rx="8" fill="none" stroke="#7C3AED" strokeWidth="2" strokeDasharray="6 3" />
-        <rect x="560" y="415" width="190" height="56" rx="8" fill="#7C3AED" opacity="0.1" />
-        <text x="655" y="440" textAnchor="middle" fill="#7C3AED" fontSize="11" fontWeight="600">Partner Program Review</text>
-        <text x="655" y="456" textAnchor="middle" fill="#6B7280" fontSize="10">(em paralelo)</text>
+        {/* 7. Partner Program Review (parallel) */}
+        <rect x="500" y="405" width="180" height="56" rx="8" fill="none" stroke="#7C3AED" strokeWidth="2" strokeDasharray="6 3" />
+        <rect x="500" y="405" width="180" height="56" rx="8" fill="#7C3AED" opacity="0.1" />
+        <text x="590" y="430" textAnchor="middle" fill="#7C3AED" fontSize="11" fontWeight="600">Partner Program Review</text>
+        <text x="590" y="446" textAnchor="middle" fill="#6B7280" fontSize="10">(em paralelo)</text>
 
-        {/* Dashed arrow from Portal Access to Review (parallel) */}
-        <line x1="455" y1="452" x2="558" y2="443" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="5 3" markerEnd="url(#arrowhead)" />
+        <line x1="445" y1="442" x2="498" y2="433" stroke="#7C3AED" strokeWidth="1.5" strokeDasharray="5 3" markerEnd="url(#arrowhead)" />
 
         {/* Label: dados enviados ao HubSpot */}
-        <text x="510" y="495" textAnchor="middle" fill="#6B7280" fontSize="11" fontStyle="italic">dados enviados ao HubSpot</text>
+        <text x="350" y="488" textAnchor="middle" fill="#6B7280" fontSize="11" fontStyle="italic">dados enviados ao HubSpot</text>
       </svg>
     </div>
   );
@@ -663,33 +643,6 @@ export default function FlowPage() {
               </div>
             </CollapsibleSection>
 
-            <CollapsibleSection title="Merchant Redirect - Lojistas (Redirecionamento)" color="orange">
-              <div className="p-4 bg-orange-50 rounded-lg">
-                <h4 className="font-semibold text-orange-900 mb-2">Fluxo de Redirecionamento</h4>
-                <ol className="space-y-2 text-orange-800">
-                  <li className="flex items-start gap-2">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500 text-white text-sm flex items-center justify-center font-bold">1</span>
-                    <span>Usuário seleciona "Criar minha loja virtual"</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500 text-white text-sm flex items-center justify-center font-bold">2</span>
-                    <span>Sistema exibe confirmação com pergunta secundária</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500 text-white text-sm flex items-center justify-center font-bold">3</span>
-                    <span><strong>"Você também quer oferecer serviços?"</strong></span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500 text-white text-sm flex items-center justify-center font-bold">4a</span>
-                    <span>Se SIM → Redireciona para Agency Partner</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="flex-shrink-0 w-6 h-6 rounded-full bg-orange-500 text-white text-sm flex items-center justify-center font-bold">4b</span>
-                    <span>Se NÃO → Redireciona para signup Nuvemshop</span>
-                  </li>
-                </ol>
-              </div>
-            </CollapsibleSection>
           </div>
         </section>
 
