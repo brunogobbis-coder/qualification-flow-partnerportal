@@ -91,7 +91,7 @@ export function ObjectiveStep({
       </div>
 
       {/* Partner Track Cards */}
-      <div className="grid gap-4 sm:grid-cols-2">
+      <div className="flex flex-col gap-4">
         {partnerTracks.map((track, index) => {
           const isSelected = value === track.value;
           
@@ -104,7 +104,7 @@ export function ObjectiveStep({
               transition={{ delay: index * 0.1 }}
               onClick={() => handleSelect(track.value)}
               className={`
-                relative flex flex-col items-start rounded-xl border-2 p-5 text-left transition-all duration-200
+                relative flex items-center gap-4 rounded-xl border-2 p-5 text-left transition-all duration-200
                 ${isSelected 
                   ? `${track.borderColor} ${track.bgColor} ring-2 ring-offset-2 ${track.borderColor.replace('border-', 'ring-')}`
                   : 'border-gray-200 bg-white hover:border-gray-300 hover:bg-gray-50'
@@ -112,40 +112,34 @@ export function ObjectiveStep({
               `}
             >
               {/* Icon */}
-              <div className={`mb-4 rounded-lg p-2 ${isSelected ? track.bgColor : 'bg-gray-100'}`}>
+              <div className={`flex-shrink-0 rounded-lg p-3 ${isSelected ? track.bgColor : 'bg-gray-100'}`}>
                 <span className={isSelected ? track.color : 'text-gray-500'}>
                   {track.icon}
                 </span>
               </div>
 
               {/* Content */}
-              <h3 className={`text-lg font-semibold ${isSelected ? track.color.replace('text-', 'text-').replace('-600', '-900') : 'text-gray-900'}`}>
-                {track.headline}
-              </h3>
-              <p className={`mt-2 text-sm ${isSelected ? track.color.replace('-600', '-700') : 'text-gray-500'}`}>
-                {track.description}
-              </p>
+              <div className="flex-1 min-w-0">
+                <h3 className={`text-lg font-semibold ${isSelected ? track.color.replace('text-', 'text-').replace('-600', '-900') : 'text-gray-900'}`}>
+                  {track.headline}
+                </h3>
+                <p className={`mt-1 text-sm ${isSelected ? track.color.replace('-600', '-700') : 'text-gray-500'}`}>
+                  {track.description}
+                </p>
+              </div>
 
               {/* Selected Indicator */}
-              {isSelected && (
-                <motion.div
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  className="absolute right-3 top-3"
-                >
-                  <svg
-                    className={`h-6 w-6 ${track.color}`}
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </motion.div>
-              )}
+              <div className="flex-shrink-0">
+                {isSelected ? (
+                  <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                    <svg className={`h-6 w-6 ${track.color}`} fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </motion.div>
+                ) : (
+                  <div className="h-6 w-6 rounded-full border-2 border-gray-300" />
+                )}
+              </div>
             </motion.button>
           );
         })}
