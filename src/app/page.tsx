@@ -804,18 +804,14 @@ function QualificationFlowInner() {
     <div className="min-h-screen bg-white py-8 sm:py-12">
       <div className="mx-auto max-w-2xl px-4">
         {/* Header */}
-        <div className="mb-8 flex items-center">
-          <div className="w-14" />
-          <div className="flex flex-1 flex-col items-center">
-            {/* Nuvemshop Logo */}
-            <img
-              src="/logo.png"
-              alt="Nuvemshop"
-              className="h-12 w-auto"
-            />
-            <p className="mt-3 text-sm text-gray-500">{t('q.header')}</p>
-          </div>
-          <LanguageToggle />
+        <div className="mb-8 flex flex-col items-center">
+          {/* Nuvemshop Logo */}
+          <img
+            src="/logo.png"
+            alt="Nuvemshop"
+            className="h-12 w-auto"
+          />
+          <p className="mt-3 text-sm text-gray-500">{t('q.header')}</p>
         </div>
 
         {/* Progress Bar - Only show after objective is selected */}
@@ -830,6 +826,9 @@ function QualificationFlowInner() {
 
         {/* Step Content */}
         <div className="card">
+          <div className="mb-4 flex justify-end">
+            <LanguageToggle />
+          </div>
           <AnimatePresence mode="wait">
             <div key={currentStep}>{renderStep()}</div>
           </AnimatePresence>
