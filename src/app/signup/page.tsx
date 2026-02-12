@@ -133,7 +133,6 @@ interface FormData {
   // Step 4: Specifics (varies by type)
   // Tech Partner
   solutionType?: string;
-  technologies: string[];
   solutionDescription: string;
   // Service Partner (Agency Partner)
   serviceType?: string;
@@ -160,7 +159,6 @@ const initialFormData: FormData = {
   companyName: '',
   website: '',
   country: '',
-  technologies: [],
   solutionDescription: '',
   services: [],
   serviceWebsite: '',
@@ -227,7 +225,6 @@ function SignupFlowContent() {
       case 2:
         if (formData.partnerType === 'tech_partner') {
           if (!formData.solutionType) newErrors.solutionType = t('validation.selectSolutionType');
-          if (formData.technologies.length === 0) newErrors.technologies = t('validation.selectAtLeastOneTech');
         }
         if (formData.partnerType === 'service_partner') {
           if (!formData.serviceType) newErrors.serviceType = t('validation.selectServiceType');
@@ -847,16 +844,6 @@ function TechPartnerDetails({
   const { t } = useTranslation();
 
   const solutionTypeKeys = ['app', 'theme', 'integration', 'erp_crm'] as const;
-  const techNames = ['React', 'Node.js', 'PHP', 'Python', 'Java', '.NET'];
-
-  const toggleTechnology = (tech: string) => {
-    const current = formData.technologies;
-    if (current.includes(tech)) {
-      onChange({ technologies: current.filter((item) => item !== tech) });
-    } else {
-      onChange({ technologies: [...current, tech] });
-    }
-  };
 
   return (
     <Box display="flex" flexDirection="column" gap="4">
@@ -882,32 +869,6 @@ function TechPartnerDetails({
         {errors.solutionType && (
           <Text color="danger-textLow" fontSize="caption">
             {errors.solutionType}
-          </Text>
-        )}
-      </Box>
-
-      <Box display="flex" flexDirection="column" gap="2">
-        <Text fontWeight="medium">{t('techPartner.technologiesLabel')} *</Text>
-        <Box display="flex" flexWrap="wrap" gap="2">
-          {techNames.map((tech) => (
-            <Checkbox
-              key={tech}
-              name={`tech-${tech}`}
-              label={tech}
-              checked={formData.technologies.includes(tech)}
-              onChange={() => toggleTechnology(tech)}
-            />
-          ))}
-          <Checkbox
-            name="tech-other"
-            label={t('common.other')}
-            checked={formData.technologies.includes('other')}
-            onChange={() => toggleTechnology('other')}
-          />
-        </Box>
-        {errors.technologies && (
-          <Text color="danger-textLow" fontSize="caption">
-            {errors.technologies}
           </Text>
         )}
       </Box>
@@ -1408,7 +1369,6 @@ function StepConfirmation({ formData }: { formData: FormData }) {
           {formData.partnerType === 'tech_partner' && (
             <>
               <ConfirmRow label={t('confirmation.solutionTypeLabel')} value={formData.solutionType ? t(`techPartner.solutionTypes.${formData.solutionType}`) : undefined} />
-              <ConfirmRow label={t('confirmation.technologiesLabel')} value={formData.technologies.join(', ')} />
               {formData.solutionDescription && <ConfirmRow label={t('confirmation.descriptionLabel')} value={formData.solutionDescription} />}
             </>
           )}
