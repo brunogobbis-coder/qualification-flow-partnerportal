@@ -17,7 +17,6 @@ import {
   CommunityStep,
   EcommerceExperienceStep,
   ExpectationsStep,
-  WhatsAppStep,
   ServiceTypeStep,
   StoreFrequencyStep,
   EmployeeCountStep,
@@ -71,7 +70,6 @@ const AFFILIATE_STEPS = [
   'community',
   'ecommerceExperience',
   'expectations',
-  'whatsapp',
 ] as const;
 
 const SERVICE_PROVIDER_STEPS = [
@@ -83,7 +81,6 @@ const SERVICE_PROVIDER_STEPS = [
   'serviceProfile',
   'clientsVolume',
   'nuvemshopExperience',
-  'whatsapp',
 ] as const;
 
 const TECH_PARTNER_STEPS = [
@@ -92,7 +89,6 @@ const TECH_PARTNER_STEPS = [
   'techSolutionType',
   'techExperience',
   'techDescription',
-  'whatsapp',
 ] as const;
 
 type AffiliateStepId = (typeof AFFILIATE_STEPS)[number];
@@ -137,7 +133,6 @@ function QualificationFlowInner() {
 
   // Form state - Common
   const [objective, setObjective] = useState<Objective>();
-  const [whatsapp, setWhatsapp] = useState<string>();
 
   // Form state - Affiliate
   const [username, setUsername] = useState('');
@@ -229,7 +224,6 @@ function QualificationFlowInner() {
       // Build the qualification data
       const data: QualificationData = {
         objective: objective!,
-        whatsapp: whatsapp!,
       };
 
       if (objective === 'affiliate') {
@@ -294,7 +288,6 @@ function QualificationFlowInner() {
     }
   }, [
     objective,
-    whatsapp,
     username,
     siteUrl,
     readyToRefer,
@@ -329,7 +322,6 @@ function QualificationFlowInner() {
   const resetForm = useCallback(() => {
     // Common
     setObjective(undefined);
-    setWhatsapp(undefined);
     // Affiliate
     setUsername('');
     setSiteUrl('');
@@ -754,19 +746,6 @@ function QualificationFlowInner() {
           />
         );
 
-      // Common final step
-      case 'whatsapp':
-        return (
-          <WhatsAppStep
-            value={whatsapp}
-            onChange={setWhatsapp}
-            onNext={handleNextOrSubmit}
-            onBack={handleBack}
-            isSubmitting={isSubmitting}
-            submitError={submitError}
-          />
-        );
-
       default:
         return null;
     }
@@ -848,8 +827,6 @@ function QualificationFlowInner() {
                 techHasExistingProduct,
                 techExistingPlatforms,
                 techSolutionDescription,
-                // Common
-                whatsapp,
               },
               null,
               2

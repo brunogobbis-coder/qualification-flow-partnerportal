@@ -381,9 +381,9 @@ const ptBR = {
       affiliateDesc: 'Indicar e ganhar',
       merchant: 'Merchant',
       merchantDesc: 'Criar loja',
-      techForm: 'Tech Form (6 steps)',
-      serviceForm: 'Service Form (9 steps)',
-      affiliateForm: 'Affiliate Form (11 steps)',
+      techForm: 'Tech Form (5 steps)',
+      serviceForm: 'Service Form (8 steps)',
+      affiliateForm: 'Affiliate Form (10 steps)',
       redirectToSignup: 'Redirect to Signup',
       exit: 'Exit',
       portalAccess: 'Partner Portal Access',
@@ -401,9 +401,9 @@ const ptBR = {
       select: '▼ Seleção:',
     },
     collapsible: {
-      tech: 'Tech Partner - Desenvolvedores (6 etapas)',
-      service: 'Agency Partner - Agências e Freelancers (9 etapas)',
-      affiliate: 'Affiliate - Afiliados e Influenciadores (11 etapas)',
+      tech: 'Tech Partner - Desenvolvedores (5 etapas)',
+      service: 'Agency Partner - Agências e Freelancers (8 etapas)',
+      affiliate: 'Affiliate - Afiliados e Influenciadores (10 etapas)',
       merchant: 'Merchant Redirect - Lojistas (Redirecionamento)',
     },
     objective: {
@@ -413,11 +413,6 @@ const ptBR = {
       opt1: 'Agency Partner',
       opt2: 'Afiliado',
       opt3: 'Criar loja (redirect)',
-    },
-    whatsapp: {
-      name: 'WhatsApp',
-      desc: 'Contato para comunicação',
-      opt0: '+55 (XX) XXXXX-XXXX',
     },
     tech: {
       s2: {
@@ -840,16 +835,6 @@ const ptBR = {
       lifestyleDesc: 'Estilo de vida e bem-estar',
       otherNiche: 'Outro',
       otherNicheDesc: 'Outro nicho de audiência',
-    },
-    whatsappStep: {
-      title: 'Qual é o seu WhatsApp?',
-      subtitle: 'Usaremos este número para entrar em contato com você sobre oportunidades e atualizações do programa',
-      placeholder: 'Seu número de WhatsApp',
-      helper: 'Selecione seu país e insira o número com DDD',
-      errorRequired: 'Por favor, informe seu número de WhatsApp',
-      errorInvalid: 'Por favor, insira um número de telefone válido',
-      badgeTitle: 'Comunicação via WhatsApp',
-      badgeDesc: 'Você receberá atualizações importantes e suporte direto',
     },
     serviceType: {
       title: 'Qual tipo de prestador de serviço você é?',
@@ -1403,9 +1388,9 @@ const es: typeof ptBR = {
       affiliateDesc: 'Recomendar y ganar',
       merchant: 'Merchant',
       merchantDesc: 'Crear tienda',
-      techForm: 'Tech Form (6 pasos)',
-      serviceForm: 'Service Form (9 pasos)',
-      affiliateForm: 'Affiliate Form (11 pasos)',
+      techForm: 'Tech Form (5 pasos)',
+      serviceForm: 'Service Form (8 pasos)',
+      affiliateForm: 'Affiliate Form (10 pasos)',
       redirectToSignup: 'Redirect to Signup',
       exit: 'Salir',
       portalAccess: 'Partner Portal Access',
@@ -1423,9 +1408,9 @@ const es: typeof ptBR = {
       select: '▼ Selección:',
     },
     collapsible: {
-      tech: 'Tech Partner - Desarrolladores (6 etapas)',
-      service: 'Agency Partner - Agencias y Freelancers (9 etapas)',
-      affiliate: 'Affiliate - Afiliados e Influencers (11 etapas)',
+      tech: 'Tech Partner - Desarrolladores (5 etapas)',
+      service: 'Agency Partner - Agencias y Freelancers (8 etapas)',
+      affiliate: 'Affiliate - Afiliados e Influencers (10 etapas)',
       merchant: 'Merchant Redirect - Comerciantes (Redirección)',
     },
     objective: {
@@ -1435,11 +1420,6 @@ const es: typeof ptBR = {
       opt1: 'Agency Partner',
       opt2: 'Afiliado',
       opt3: 'Crear tienda (redirect)',
-    },
-    whatsapp: {
-      name: 'WhatsApp',
-      desc: 'Contacto para comunicación',
-      opt0: '+XX (XX) XXXXX-XXXX',
     },
     tech: {
       s2: {
@@ -1862,16 +1842,6 @@ const es: typeof ptBR = {
       lifestyleDesc: 'Estilo de vida y bienestar',
       otherNiche: 'Otro',
       otherNicheDesc: 'Otro nicho de audiencia',
-    },
-    whatsappStep: {
-      title: '¿Cuál es tu WhatsApp?',
-      subtitle: 'Usaremos este número para contactarte sobre oportunidades y actualizaciones del programa',
-      placeholder: 'Tu número de WhatsApp',
-      helper: 'Selecciona tu país e ingresa el número con código de área',
-      errorRequired: 'Por favor, ingresa tu número de WhatsApp',
-      errorInvalid: 'Por favor, ingresa un número de teléfono válido',
-      badgeTitle: 'Comunicación vía WhatsApp',
-      badgeDesc: 'Recibirás actualizaciones importantes y soporte directo',
     },
     serviceType: {
       title: '¿Qué tipo de prestador de servicios eres?',

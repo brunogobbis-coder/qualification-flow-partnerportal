@@ -51,13 +51,6 @@ const techPartnerSteps: StepData[] = [
     fieldType: 'textarea',
     options: ['Campo livre para descrever a solução']
   },
-  { 
-    id: 6, 
-    name: 'WhatsApp', 
-    description: 'Contato para comunicação',
-    fieldType: 'text',
-    options: ['+55 (XX) XXXXX-XXXX']
-  },
 ];
 
 const servicePartnerSteps: StepData[] = [
@@ -117,13 +110,6 @@ const servicePartnerSteps: StepData[] = [
     description: 'Familiaridade com a plataforma',
     fieldType: 'radio',
     options: ['Nenhuma', 'Básica', 'Intermediária', 'Avançada']
-  },
-  { 
-    id: 9, 
-    name: 'WhatsApp', 
-    description: 'Contato para comunicação',
-    fieldType: 'text',
-    options: ['+55 (XX) XXXXX-XXXX']
   },
 ];
 
@@ -198,13 +184,6 @@ const affiliateSteps: StepData[] = [
     description: 'O que busca se juntando ao Programa?',
     fieldType: 'checkbox',
     options: ['Comissões', 'Suporte exclusivo', 'Materiais de capacitação', 'Maior autoridade com minha comunidade como partner Nuvemshop']
-  },
-  { 
-    id: 11, 
-    name: 'WhatsApp', 
-    description: 'Contato para comunicação',
-    fieldType: 'text',
-    options: ['+55 (XX) XXXXX-XXXX']
   },
 ];
 
@@ -342,13 +321,13 @@ function MainFlowDiagram() {
         <line x1="580" y1="294" x2="580" y2="328" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
 
         <rect x="50" y="328" width="140" height="38" rx="6" fill="#A855F7" opacity="0.8" />
-        <text x="120" y="351" textAnchor="middle" fill="white" fontSize="11">Tech Form (6 steps)</text>
+        <text x="120" y="351" textAnchor="middle" fill="white" fontSize="11">Tech Form (5 steps)</text>
 
         <rect x="280" y="328" width="140" height="38" rx="6" fill="#60A5FA" opacity="0.8" />
-        <text x="350" y="351" textAnchor="middle" fill="white" fontSize="11">Service Form (9 steps)</text>
+        <text x="350" y="351" textAnchor="middle" fill="white" fontSize="11">Service Form (8 steps)</text>
 
         <rect x="510" y="328" width="140" height="38" rx="6" fill="#4ADE80" opacity="0.8" />
-        <text x="580" y="351" textAnchor="middle" fill="white" fontSize="11">Affiliate Form (11 steps)</text>
+        <text x="580" y="351" textAnchor="middle" fill="white" fontSize="11">Affiliate Form (10 steps)</text>
 
         {/* 6. All forms -> Partner Portal Access */}
         <path d="M 120 366 Q 120 395 260 420" fill="none" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
@@ -478,7 +457,7 @@ export default function FlowPage() {
         <section>
           <h2 className="text-xl font-bold text-gray-900 mb-4">Detalhes por Trilha</h2>
           <div className="space-y-4">
-            <CollapsibleSection title="Tech Partner - Desenvolvedores (6 etapas)" color="purple" defaultOpen>
+            <CollapsibleSection title="Tech Partner - Desenvolvedores (5 etapas)" color="purple" defaultOpen>
               <div className="space-y-4">
                 <StepFlow steps={techPartnerSteps} color="bg-purple-600" />
                 <div className="grid gap-3 md:grid-cols-2 mt-4">
@@ -530,7 +509,7 @@ export default function FlowPage() {
               </div>
             </CollapsibleSection>
 
-            <CollapsibleSection title="Agency Partner - Agências e Freelancers (9 etapas)" color="blue">
+            <CollapsibleSection title="Agency Partner - Agências e Freelancers (8 etapas)" color="blue">
               <div className="space-y-4">
                 <StepFlow steps={servicePartnerSteps} color="bg-blue-600" />
                 <div className="grid gap-3 md:grid-cols-2 mt-4">
@@ -582,7 +561,7 @@ export default function FlowPage() {
               </div>
             </CollapsibleSection>
 
-            <CollapsibleSection title="Affiliate - Afiliados e Influenciadores (11 etapas)" color="green">
+            <CollapsibleSection title="Affiliate - Afiliados e Influenciadores (10 etapas)" color="green">
               <div className="space-y-4">
                 <StepFlow steps={affiliateSteps} color="bg-green-600" />
                 <div className="grid gap-3 md:grid-cols-2 mt-4">

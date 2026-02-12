@@ -173,7 +173,6 @@ export interface TechPartnerData {
 
 export interface QualificationData {
   objective: Objective;
-  whatsapp: string;
   email?: string;
   name?: string;
   country?: string;

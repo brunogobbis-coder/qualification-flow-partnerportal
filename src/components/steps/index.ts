@@ -6,7 +6,6 @@ export { AuthorityTrainingStep } from './AuthorityTrainingStep';
 export { CommunityStep } from './CommunityStep';
 export { EcommerceExperienceStep } from './EcommerceExperienceStep';
 export { ExpectationsStep } from './ExpectationsStep';
-export { WhatsAppStep } from './WhatsAppStep';
 
 // Service Provider Steps
 export { ServiceTypeStep } from './ServiceTypeStep';

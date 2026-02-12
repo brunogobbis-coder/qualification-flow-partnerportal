@@ -21,20 +21,19 @@ Partner Portal → Signup → "Qual e seu objetivo?" → Track-specific Form →
 
 | Track | Steps | Target |
 |-------|-------|--------|
-| **Tech Partner** | 6 | Developers building apps, themes, integrations or ERP/CRM connectors |
-| **Agency Partner** | 9 | Agencies, freelancers and consultants offering e-commerce services |
-| **Affiliate** | 11 | Content creators, influencers and educators driving referrals |
+| **Tech Partner** | 5 | Developers building apps, themes, integrations or ERP/CRM connectors |
+| **Agency Partner** | 8 | Agencies, freelancers and consultants offering e-commerce services |
+| **Affiliate** | 10 | Content creators, influencers and educators driving referrals |
 | **Merchant** | redirect | Users who want to create a store (redirected to merchant signup) |
 
-### Tech Partner (6 steps)
+### Tech Partner (5 steps)
 1. Objective (shared) - Partnership type selection
 2. Company - Name, website, country, team size
 3. Solution Type - App, theme, integration, ERP/CRM
 4. Experience - Previous platforms (Shopify, VTEX, WooCommerce, etc.)
 5. Description - Free-text solution description
-6. WhatsApp - Contact number
 
-### Agency Partner (9 steps)
+### Agency Partner (8 steps)
 1. Objective (shared)
 2. Provider Type - Agency, freelancer, consultant, developer, traffic manager
 3. Store Implementation - Frequency of store creation
@@ -43,9 +42,8 @@ Partner Portal → Signup → "Qual e seu objetivo?" → Track-specific Form →
 6. Website / Instagram - Portfolio URL
 7. Monthly Store Volume - Stores created per month
 8. Nuvemshop Experience - Platform familiarity level
-9. WhatsApp
 
-### Affiliate (11 steps)
+### Affiliate (10 steps)
 1. Objective (shared)
 2. Content Platforms - Up to 3 platforms (YouTube, Instagram, TikTok, Blog, etc.)
 3. Website / Social + Audience Size - URL and audience range (dropdown)
@@ -56,7 +54,6 @@ Partner Portal → Signup → "Qual e seu objetivo?" → Track-specific Form →
 8. E-commerce Experience - Platform familiarity
 9. Audience Niche - E-commerce, entrepreneurship, marketing, etc.
 10. Program Expectations - What they seek (multi-select)
-11. WhatsApp
 
 ---
 
@@ -82,7 +79,7 @@ src/
 │   ├── flow/page.tsx         # Visual documentation & diagrams
 │   └── layout.tsx            # Root layout
 ├── components/
-│   ├── steps/                # 24 step components
+│   ├── steps/                # 23 step components
 │   │   ├── ObjectiveStep.tsx           # Shared first step
 │   │   ├── ContentPlatformStep.tsx     # Affiliate
 │   │   ├── MonetizationStep.tsx        # Affiliate
