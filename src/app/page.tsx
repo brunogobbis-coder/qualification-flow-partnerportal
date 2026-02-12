@@ -30,7 +30,6 @@ import {
   TechSolutionTypeStep,
   TechExperienceStep,
   TechDescriptionStep,
-  TechStackStep,
   // Affiliate Steps (new)
   ContentPlatformStep,
   AffiliatePromotionStep,
@@ -54,7 +53,6 @@ import type {
   CompanySize,
   SolutionType,
   EcommercePlatformExperience,
-  Technology,
   // Affiliate Types
   ContentPlatform,
   PromotionChannel,
@@ -94,7 +92,6 @@ const TECH_PARTNER_STEPS = [
   'techSolutionType',
   'techExperience',
   'techDescription',
-  'techStack',
   'whatsapp',
 ] as const;
 
@@ -175,8 +172,6 @@ function QualificationFlowInner() {
   const [techHasExistingProduct, setTechHasExistingProduct] = useState<boolean>();
   const [techExistingPlatforms, setTechExistingPlatforms] = useState<EcommercePlatformExperience[]>([]);
   const [techSolutionDescription, setTechSolutionDescription] = useState('');
-  const [techTechnologies, setTechTechnologies] = useState<Technology[]>([]);
-  const [techHasApiExperience, setTechHasApiExperience] = useState<boolean>();
 
   // Flow state
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -276,8 +271,6 @@ function QualificationFlowInner() {
           hasExistingProduct: techHasExistingProduct!,
           existingPlatforms: techExistingPlatforms,
           solutionDescription: techSolutionDescription,
-          technologies: techTechnologies,
-          hasApiExperience: techHasApiExperience!,
         };
       }
 
@@ -327,8 +320,6 @@ function QualificationFlowInner() {
     techHasExistingProduct,
     techExistingPlatforms,
     techSolutionDescription,
-    techTechnologies,
-    techHasApiExperience,
   ]);
 
   // On the last step, "next" triggers submission
@@ -367,8 +358,6 @@ function QualificationFlowInner() {
     setTechHasExistingProduct(undefined);
     setTechExistingPlatforms([]);
     setTechSolutionDescription('');
-    setTechTechnologies([]);
-    setTechHasApiExperience(undefined);
     // Flow
     setCurrentStepIndex(0);
     setIsComplete(false);
@@ -765,18 +754,6 @@ function QualificationFlowInner() {
           />
         );
 
-      case 'techStack':
-        return (
-          <TechStackStep
-            technologies={techTechnologies}
-            hasApiExperience={techHasApiExperience}
-            onTechnologiesChange={setTechTechnologies}
-            onHasApiExperienceChange={setTechHasApiExperience}
-            onNext={handleNextOrSubmit}
-            onBack={handleBack}
-          />
-        );
-
       // Common final step
       case 'whatsapp':
         return (
@@ -871,8 +848,6 @@ function QualificationFlowInner() {
                 techHasExistingProduct,
                 techExistingPlatforms,
                 techSolutionDescription,
-                techTechnologies,
-                techHasApiExperience,
                 // Common
                 whatsapp,
               },

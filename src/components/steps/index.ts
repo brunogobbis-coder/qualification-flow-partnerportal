@@ -22,7 +22,6 @@ export { TechCompanyInfoStep } from './TechCompanyInfoStep';
 export { TechSolutionTypeStep } from './TechSolutionTypeStep';
 export { TechExperienceStep } from './TechExperienceStep';
 export { TechDescriptionStep } from './TechDescriptionStep';
-export { TechStackStep } from './TechStackStep';
 
 // Affiliate Steps (new)
 export { ContentPlatformStep } from './ContentPlatformStep';

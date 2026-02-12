@@ -86,17 +86,6 @@ export type SolutionType =
   | 'integration'
   | 'erp_crm';
 
-export type Technology =
-  | 'react'
-  | 'nodejs'
-  | 'php'
-  | 'python'
-  | 'java'
-  | 'ruby'
-  | 'go'
-  | 'dotnet'
-  | 'other';
-
 export type EcommercePlatformExperience =
   | 'shopify'
   | 'vtex'
@@ -180,8 +169,6 @@ export interface TechPartnerData {
   hasExistingProduct: boolean;
   existingPlatforms?: EcommercePlatformExperience[];
   solutionDescription: string;
-  technologies: Technology[];
-  hasApiExperience: boolean;
 }
 
 export interface QualificationData {

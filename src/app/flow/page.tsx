@@ -53,13 +53,6 @@ const techPartnerSteps: StepData[] = [
   },
   { 
     id: 6, 
-    name: 'Stack Técnica', 
-    description: 'Tecnologias utilizadas',
-    fieldType: 'checkbox',
-    options: ['React', 'Node.js', 'PHP', 'Python', 'Java', '.NET', 'Ruby', 'Go', 'Outro']
-  },
-  { 
-    id: 7, 
     name: 'WhatsApp', 
     description: 'Contato para comunicação',
     fieldType: 'text',
@@ -349,7 +342,7 @@ function MainFlowDiagram() {
         <line x1="580" y1="294" x2="580" y2="328" stroke="#6B7280" strokeWidth="2" markerEnd="url(#arrowhead)" />
 
         <rect x="50" y="328" width="140" height="38" rx="6" fill="#A855F7" opacity="0.8" />
-        <text x="120" y="351" textAnchor="middle" fill="white" fontSize="11">Tech Form (7 steps)</text>
+        <text x="120" y="351" textAnchor="middle" fill="white" fontSize="11">Tech Form (6 steps)</text>
 
         <rect x="280" y="328" width="140" height="38" rx="6" fill="#60A5FA" opacity="0.8" />
         <text x="350" y="351" textAnchor="middle" fill="white" fontSize="11">Service Form (9 steps)</text>
@@ -413,8 +406,6 @@ function DataModelDiagram() {
           <div>hasExistingProduct: boolean</div>
           <div>existingPlatforms?: EcommercePlatformExperience[]</div>
           <div>solutionDescription: string</div>
-          <div>technologies: Technology[]</div>
-          <div>hasApiExperience: boolean</div>
         </div>
       </div>
 
@@ -487,7 +478,7 @@ export default function FlowPage() {
         <section>
           <h2 className="text-xl font-bold text-gray-900 mb-4">Detalhes por Trilha</h2>
           <div className="space-y-4">
-            <CollapsibleSection title="Tech Partner - Desenvolvedores (7 etapas)" color="purple" defaultOpen>
+            <CollapsibleSection title="Tech Partner - Desenvolvedores (6 etapas)" color="purple" defaultOpen>
               <div className="space-y-4">
                 <StepFlow steps={techPartnerSteps} color="bg-purple-600" />
                 <div className="grid gap-3 md:grid-cols-2 mt-4">
