@@ -69,6 +69,7 @@ const AFFILIATE_STEPS = [
   'authorityTraining',
   'community',
   'ecommerceExperience',
+  'audienceNiche',
   'expectations',
 ] as const;
 
@@ -611,6 +612,16 @@ function QualificationFlowInner() {
           <EcommerceExperienceStep
             value={ecommerceExperience}
             onChange={setEcommerceExperience}
+            onNext={handleNextOrSubmit}
+            onBack={handleBack}
+          />
+        );
+
+      case 'audienceNiche':
+        return (
+          <AffiliateAudienceStep
+            audienceNiche={audienceNiche}
+            onAudienceNicheChange={setAudienceNiche}
             onNext={handleNextOrSubmit}
             onBack={handleBack}
           />
